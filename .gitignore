@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.DS_Store
+.venv/
+*.egg-info/
+
+# never commit a user's actual workspace
+applications/
+preferences.yaml
+*.backup-*.docx

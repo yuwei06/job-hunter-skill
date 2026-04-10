@@ -1,0 +1,107 @@
+# Job Hunter — preferences
+#
+# This file is the user's filter configuration. It is read by the job-hunter
+# skill before scoring any JD. Hard rules are vetoes — one violation kills the
+# application. Soft rules are weighted scores.
+#
+# Edit this file directly. The skill never writes back to it.
+# Lives at: ~/Desktop/面试/preferences.yaml
+
+# === Hard rules — any single violation rejects the JD ===
+hard:
+  # Cities you'd actually move to / live in. Use Chinese city names.
+  # Remote postings are accepted regardless of city if remote_ok is true below.
+  cities:
+    - 武汉
+    - 上海
+    - 杭州
+    - 深圳
+
+  # Whether you accept remote / fully remote roles.
+  # If true, "全国/远程/Remote" postings bypass the cities check.
+  remote_ok: true
+
+  # Minimum acceptable monthly salary (lower bound of the JD's range, in K RMB).
+  # If the JD shows "20-35K", the lower bound is 20. Set this to your floor.
+  # If the JD only says "面议", the skill will mark salary as `unknown` and
+  # ask you whether to proceed.
+  salary_min: 18
+
+  # Reject postings from outsourcing / staffing / 乙方 companies.
+  # The skill looks for: 外包, 驻场, 人力外包, 乙方, 派遣, 劳务,
+  # plus a known list of common outsourcing vendors.
+  no_outsourcing: true
+
+  # Reject postings that signal long hours.
+  # The skill looks for: 996, 大小周, 单休, "弹性工作时间" used as a euphemism,
+  # "高强度", "需适应加班".
+  no_996: true
+
+  # Free-form blacklist of words/phrases. If any of these appear in the JD,
+  # the posting is rejected. Use this for tech you refuse to touch, industries
+  # you avoid, etc.
+  exclude_keywords:
+    - jQuery
+    - Vue 2
+    - 传统制造业
+    # - 教育培训   # uncomment if you want to skip ed-tech
+    # - 区块链
+    # - 加密货币
+
+# === Soft rules — weighted scoring (defaults if you don't override) ===
+soft:
+  # Weights for the 6 scoring dimensions. Must sum to 100.
+  weights:
+    tech_stack: 30
+    seniority: 20
+    domain: 15
+    role_shape: 15
+    company_signal: 10
+    compensation: 10
+
+  # Tech you actively use and are strong at — counts as a full hit.
+  primary_stack:
+    - React
+    - Next.js
+    - TypeScript
+    - Angular
+    - Antd
+    - Tailwind
+    - Webpack
+    - ECharts
+    - Antv
+
+  # Tech you've used but aren't your strongest — counts as a partial hit.
+  secondary_stack:
+    - Vue 3
+    - Redux
+    - Zustand
+    - WebRTC
+    - WebSocket
+
+  # Domains where you have shipped real work.
+  domains:
+    - 云原生
+    - 云管理平台
+    - AI 应用平台
+    - 数字人 / 实时音视频
+    - 低代码 / 可视化编排
+    - 企业 SaaS
+
+  # The kind of role shape you prefer. Used to score "role_shape" dimension.
+  # Options: pure_ic, ic_with_mentoring, tech_lead, em
+  preferred_role_shape: ic_with_mentoring
+
+  # How you score company signal. Free-form notes the skill uses as guidance.
+  company_signal_notes: |
+    加分：A 轮以上、技术博客活跃、团队 ≥ 20 人、产品有真实付费客户
+    减分：天使轮、外包公司、客户单一、项目接近停摆
+
+# === Personal context — used for matching, NOT printed in the resume ===
+personal:
+  years_experience: 7
+  current_title: 前端开发工程师
+  current_city: 武汉
+  open_to_relocate: true   # set false if you won't move
+  english_level: 读写流畅、口语一般   # used to filter英文岗
+  notice_period: 入职即可   # 离职状态写"入职即可"，在职写"一个月"等
